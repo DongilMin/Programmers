@@ -1,16 +1,11 @@
 def solution(elements):
-
     n = len(elements)
+    extended_ele = elements * 2
+    unique_sum = set()
 
-    extended_elements = elements * 2
-    
-    unique_sums = set()
-    
     for length in range(1, n + 1):
         for start in range(n):
-            sub_sequence = extended_elements[start : start + length]
-            current_sum = sum(sub_sequence)
+            add_sum = sum(extended_ele[start : start + length])
+            unique_sum.add(add_sum)
             
-            unique_sums.add(current_sum)
-            
-    return len(unique_sums)
+    return len(unique_sum)
