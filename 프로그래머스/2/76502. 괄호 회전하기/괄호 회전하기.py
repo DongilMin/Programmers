@@ -1,40 +1,32 @@
 from collections import deque
 
-def check_correct(s):
-    
-    mapping = {")": "(", "]": "[", "}": "{"}
-    
+def check(s):
+    mapping = {")" : "(", "]" : "[", "}" : "{"}
     stack = []
     
-    for char in s:
-
-        if char in "([{":
-            stack.append(char)
-        
-        elif char in ")]}":
-
+    for c in s:
+        if c in "[({":
+            stack.append(c)
+        else:
             if not stack:
                 return False
-            
-            if stack.pop() != mapping[char]:
+            if stack.pop() != mapping[c]:
                 return False
-
+            
     return not stack
-
-def solution(s):
     
+def solution(s):
+    answer = 0
     dq = deque(s)
     
-    result = 0
-    if check_correct(dq):
-       result += 0
+    for i in range(len(s)):
         
-    for rotate in range(len(s)):
+        if check(dq):
+            answer += 1
+            
         tmp = dq[0]
         dq.popleft()
         dq.append(tmp)
-        if check_correct(dq):
-            result += 1
         
-    
-    return result
+    return answer
+        
