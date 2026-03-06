@@ -2,23 +2,17 @@ from collections import deque
 
 def solution(cacheSize, cities):
     
-    if cacheSize == 0:
-        return len(cities) * 5
-
-    total_time = 0
-    cache = deque(maxlen=cacheSize)
-
+    dq = deque(maxlen = cacheSize)
+    answer = 0
+    
     for city in cities:
-        s_city = city.lower()
-
-        if s_city in cache:
-            total_time += 1
-
-            cache.remove(s_city)
-            cache.append(s_city)
-
+        city = city.lower()
+        if city in dq and dq:
+            answer += 1
+            dq.remove(city)
         else:
-            total_time += 5
-            cache.append(s_city)
+            answer += 5
             
-    return total_time
+        dq.append(city)
+        
+    return answer
