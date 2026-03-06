@@ -1,13 +1,14 @@
-import re
-from collections import Counter
-
 def solution(s):
-    numbers = re.findall(r'\d+', s)
+    s = s[2:-2].split("},{")
+    s = sorted(s, key=lambda x:len(x))
     
-    counts = Counter(numbers)
+    s = [list(map(int, a.split(","))) for a in s]
+    answer = []
     
-    sorted_items = sorted(counts.items(), key=lambda item: item[1], reverse=True)
-    
-    answer = [int(item[0]) for item in sorted_items]
-    
+    for sub_list in s:
+        for ele in sub_list:
+            if ele not in answer:
+                answer.append(ele)
+                break
+                
     return answer
