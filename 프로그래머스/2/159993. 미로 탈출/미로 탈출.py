@@ -13,10 +13,9 @@ def BFS(start_x, start_y, maps, destination):
     
     while queue:
         x, y, dist = queue.popleft()
-        
         if maps[x][y] == destination:
             return dist, x, y
-            
+        
         for i in range(4):
             nx, ny = x + dx[i], y + dy[i]
             
@@ -25,23 +24,26 @@ def BFS(start_x, start_y, maps, destination):
                     visited[nx][ny] = True
                     queue.append((nx, ny, dist + 1))
     return -1, -1, -1
+        
 
 def find_char(maps, target):
-    for r in range(len(maps)):
-        for c in range(len(maps[0])):
-            if maps[r][c] == target:
-                return r, c
+    for i in range(len(maps)):
+        for j in range(len(maps[0])):
+            if maps[i][j] == target:
+                return i, j
     return None
-
+    
 def solution(maps):
     s_x, s_y = find_char(maps, 'S')
     
     dist_to_lever, l_x, l_y = BFS(s_x, s_y, maps, 'L')
+
     if dist_to_lever == -1:
         return -1
     
-    dist_to_exit, _, _ = BFS(l_x, l_y, maps, 'E')
+    dist_to_exit, a, b = BFS(l_x, l_y, maps, 'E')
+    
     if dist_to_exit == -1:
         return -1
-    
-    return dist_to_lever + dist_to_exit
+    return dist_to_exit + dist_to_lever
+
