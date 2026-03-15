@@ -4,19 +4,21 @@ def solution(book_time):
     for start, end in book_time:
         
         s_h, s_m = map(int, start.split(':'))
-        s_time = s_h * 60 + s_m
+        start_time = s_h * 60 + s_m
+
+        e_h, e_m = map(int, end.split(':'))
+        end_time = e_h * 60 + e_m + 10
         
-        e_hh, e_mm = map(int, end.split(':'))
-        e_time = e_hh * 60 + e_mm + 10
+        time_table[start_time] += 1
+        time_table[end_time] -= 1
         
-        time_table[s_time] += 1
-        time_table[e_time] -= 1
         
     max_rooms = 0
     current_rooms = 0
-    for i in range(len(time_table)):
-        current_rooms += time_table[i]
+    
+    for rooms in time_table:
+        current_rooms += rooms
         if current_rooms > max_rooms:
             max_rooms = current_rooms
-
+    
     return max_rooms
